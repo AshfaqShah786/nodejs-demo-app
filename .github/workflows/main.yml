@@ -5,21 +5,37 @@ on:
     branches: [main]
 
 jobs:
-  build-and-deploy:
+  test-build-deploy:
     runs-on: ubuntu-latest
 
     steps:
+      # Checkout the code from repo
       - name: Checkout code
         uses: actions/checkout@v3
-        
+
+      # Set up Node.js environment
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      # Install dependencies and run tests
+      - name: Install dependencies and run tests
+        run: |
+          npm install
+          npm test
+
+      # Log in to Docker Hub using secrets
       - name: Log in to Docker Hub
         uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
+      # Build Docker image, tag with username/repo:tag
       - name: Build Docker image
-        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/node-cicd-app .
+        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/node-cicd-app:latest .
 
+      # Push the image to Docker Hub
       - name: Push Docker image
-        run: docker push ${{ secrets.DOCKER_USERNAME }}/node-cicd-app
+        run: docker push ${{ secrets.DOCKER_USERNAME }}/node-cicd-app:latest
