@@ -1,5 +1,6 @@
 # nodejs-demo-app
 DAY-1
+
 🧱 Step-by-Step Breakdown
 1. Initialize Node.js App
 
@@ -52,12 +53,12 @@ Pushes your local Node.js + Docker project to a GitHub repo, where you’ll late
 
 Steps:
 
-    Create .github/workflows/main.yml in your repo.
-
-    Define CI/CD steps in this file (test, build, push).
+Create .github/workflows/main.yml in your repo.
+Define CI/CD steps in this file (test, build, push).
 
 Explanation:
 This YAML file is the core of your automation. GitHub Actions uses it to know what to do and when (on push to main).
+
 6. Create DockerHub Access Token & Add GitHub Secrets
 
 Steps:
@@ -65,9 +66,8 @@ Steps:
 Go to DockerHub → Account Settings → Security → Create Access Token.
 Go to your GitHub repo → Settings → Secrets and Variables → Actions → Add the following secrets:
 
-        DOCKERHUB_USERNAME
-
-        DOCKERHUB_TOKEN
+DOCKERHUB_USERNAME
+DOCKERHUB_TOKEN
 
 Explanation:
 Allows GitHub Actions to securely authenticate with DockerHub and push your image.
